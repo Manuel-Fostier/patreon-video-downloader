@@ -19,6 +19,12 @@ def extract_post_links_from_content(html_content):
     post_links = re.findall(pattern, html_content)
     return post_links
 
+def extract_tagged_post_links_from_content(html_content):
+    # Utiliser une expression régulière pour trouver tous les liens commençant par "https://www.patreon.com/posts/"
+    pattern = r'^"https:\/\/www\.patreon\.com\/school_of_arms\/posts\?filters%5Btag%5D=[a-zA-Z%\d+-]+"'
+    post_links = re.findall(pattern, html_content)
+    return post_links
+
 def extract_post_id(url):
     # Utiliser une expression régulière pour extraire le numéro à la fin de l'URL
     match = re.search(r'/posts/(\d+)', url)
@@ -26,7 +32,7 @@ def extract_post_id(url):
         return match.group(1)
     return None
 
-def process_mhtml_collection_files(directory):
+def process_mhtml_files_in_dir(directory):
     # Parcourir tous les fichiers dans le répertoire donné
     for filename in os.listdir(directory):
         if filename.endswith('.mhtml'):
@@ -52,9 +58,21 @@ def process_mhtml_collection_files(directory):
                 if post_id:
                     download_patreon_video(post_id, output_dir)
 
+def process_collection_file():
+
+    filename ="collection_list.mhtml"
+    with open(filename, 'r', encoding='utf-8') as file:
+        html_content = file.read()
+    
+    # Extraire et afficher les liens des posts
+    print(f"Processing file: {filename}")
+    post_links = extract_tagged_post_links_from_content(html_content)
+    print(f"nb of links: {len(post_links)}")
+    # for link in post_links:
+
 if __name__ == "__main__":
     # Spécifiez le répertoire contenant les fichiers .mhtml
     directory_path = '.'
 
     # Traiter tous les fichiers .mhtml de collection dans le répertoire spécifié
-    process_mhtml_collection_files(directory_path)
+#    process_mhtml_files_in_dir(directory_path)
