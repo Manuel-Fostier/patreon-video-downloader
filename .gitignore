@@ -1,2 +1,6 @@
+# Fichiers python
+*.pyc
+# Fichiers de données
 *.mp4
 *.mhtml
+
