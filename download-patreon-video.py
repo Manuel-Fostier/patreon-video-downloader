@@ -26,7 +26,7 @@ def extract_post_id(url):
         return match.group(1)
     return None
 
-def process_mhtml_files(directory):
+def process_mhtml_collection_files(directory):
     # Parcourir tous les fichiers dans le répertoire donné
     for filename in os.listdir(directory):
         if filename.endswith('.mhtml'):
@@ -56,5 +56,5 @@ if __name__ == "__main__":
     # Spécifiez le répertoire contenant les fichiers .mhtml
     directory_path = '.'
 
-    # Traiter tous les fichiers .mhtml dans le répertoire spécifié
-    process_mhtml_files(directory_path)
+    # Traiter tous les fichiers .mhtml de collection dans le répertoire spécifié
+    process_mhtml_collection_files(directory_path)
